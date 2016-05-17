@@ -6,6 +6,11 @@ body.collection {
      background-size: cover;
  }
  
+.links-container .navbar-link:active {
+  color: rgb(233, 50, 117);
+  background-color: white;
+}
+
  .album-covers {
      position: relative;
  }
