@@ -10,12 +10,9 @@
         points[index].style.transform = "scaleX(1) translateY(0)";
         points[index].style.msTransform = "scaleX(1) translateY(0)";
         points[index].style.WebkitTransform = "scaleX(1) translateY(0)";
-      },
-        i = 0;
+      };
 
-      for (i; i < points.length; i += 1) {
-        revealPoints(i);
-      }
+      forEach(revealPoints, points);
 
     },
 
