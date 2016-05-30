@@ -137,29 +137,20 @@ function trackIndex (album, song) {
   return album.songs.indexOf(song);
 }
 
-function nextSong () {
+function skip (direction) {
   var index = trackIndex(currentAlbum, currentSongFromAlbum),
       albumLength = currentAlbum.songs.length,
-      nextSongNumber = index + 1 === albumLength ? 1 : index + 2,
-      prevSongNumber = index + 1 === 0 ? albumLength : index + 1;
+      nextSongNumber,
+      prevSongNumber;
   
-  setSong(nextSongNumber);
-  
-  console.log('For fn{nextSong()}\n', 'currentSongFromAlbum: ', currentSongFromAlbum, 'currentlyPlayingSongNumber', currentlyPlayingSongNumber);
-  
-  updatePlayerBarSong();
-  
-  $getSongNumberCell(prevSongNumber).html(prevSongNumber);
-  $getSongNumberCell(currentlyPlayingSongNumber).html(pauseButtonTemplate);
-}
-
-function prevSong () {
-  var index = trackIndex(currentAlbum, currentSongFromAlbum),
-      albumLength = currentAlbum.songs.length,
-      nextSongNumber = index === 0 ? albumLength : index,
-      prevSongNumber = index === albumLength ? 1 : index + 1;
-  
-  console.log('For fn{nextSong()}\n', 'index: ', index, 'nextSongNumber: ', nextSongNumber, 'prevSongNumber: ', prevSongNumber)
+  if (direction === 'forward') {
+    index++;
+    nextSongNumber = index === albumLength ? 1 : index + 1,
+    prevSongNumber = index === 0 ? albumLength : index;
+  } else {
+    nextSongNumber = index === 0 ? albumLength : index,
+    prevSongNumber = index === albumLength ? 1 : index + 1;
+  }
   
   setSong(nextSongNumber);
   
@@ -173,7 +164,11 @@ function prevSong () {
 $(document).ready(function () {
   
   setCurrentAlbum(albumPicasso);
-  $previousButton.click(prevSong);
-  $nextButton.click(nextSong);
+  $previousButton.click(function () {
+    skip('backward');
+  });
+  $nextButton.click(function () {
+    skip('forward');
+  });
 
 });
